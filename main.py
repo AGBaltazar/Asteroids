@@ -26,13 +26,22 @@ def main():
     AsteroidField.containers = (updatable,)
     asteroid_field = AsteroidField()
 
+    #Shooting initialization
+    shots = pygame.sprite.Group()
+    Shot.containers = (shots, updatable, drawable)
+
     while True:
         screen.fill("black")
         for sprite in drawable:
             sprite.draw(screen)
         updatable.update(dt)
+        player.timer -= dt
         player.move(dt)
         pygame.display.flip()
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.collisions(asteroid):
+                    asteroid.split()
         for i in asteroids:
             if i.collisions(player):
                 print("Game over!")
