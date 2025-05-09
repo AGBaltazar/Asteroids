@@ -6,6 +6,9 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.timer = 0
+        self.health = 3
+        self.invinsible = False
+        self.invinsible_timer = 10
     
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -39,9 +42,14 @@ class Player(CircleShape):
             return
         new_shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
         new_shot.velocity = pygame.Vector2(0,1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
-        
 
+    #When the player gets hit, a cooldown is implemented to ensure one health point is taken
+    def cooldown_overshield(self):
+            self.health -=1
+            self.invinsible = True
+            self.invinsible_timer = PLAYER_INVINSIBLE_COOLDOWN
 
+            
 class Shot(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)

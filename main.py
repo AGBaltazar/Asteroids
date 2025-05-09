@@ -38,14 +38,22 @@ def main():
         player.timer -= dt
         player.move(dt)
         pygame.display.flip()
+        if player.invinsible == True:
+            player.invinsible_timer -=dt
+        if player.invinsible_timer<= 0:
+            player.invinsible = False
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collisions(asteroid):
                     asteroid.split()
         for i in asteroids:
             if i.collisions(player):
-                print("Game over!")
-                sys.exit()
+                if player.invinsible == False:
+                    player.cooldown_overshield()
+                    print(player.health)
+                if player.health == 0:
+                    print("Game over!")
+                    sys.exit()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
