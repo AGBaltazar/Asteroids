@@ -5,14 +5,27 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 
-def main():
-    print("Starting Asteroids!")
+def background():     
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    
+    return screen
+
+def background_overlay(screen, player):
+        font = pygame.font.Font(None, 40)
+        text = font.render(f"Health: {player.health} Enemies Dispersed: {player.dispersed_count}", True, "white")
+        text_position = text.get_rect(centerx= SCREEN_WIDTH /2, y =10)
+        overlay = pygame.draw.rect(screen, "white", rect= text_position, width= 1)
+        screen.blit(text, text_position)
+
+def main():
     pygame.init()
     clock = pygame.time.Clock()
     dt = 0 #DeltaTime
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    #Background Initilization
+    screen = background()
 
     #Player initialization
     updatable = pygame.sprite.Group()
@@ -29,9 +42,9 @@ def main():
     #Shooting initialization
     shots = pygame.sprite.Group()
     Shot.containers = (shots, updatable, drawable)
-
     while True:
         screen.fill("black")
+        background_overlay(screen, player)
         for sprite in drawable:
             sprite.draw(screen)
         updatable.update(dt)
@@ -45,12 +58,12 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collisions(asteroid):
+                    player.dispersed_count +=1
                     asteroid.split()
         for i in asteroids:
             if i.collisions(player):
                 if player.invinsible == False:
                     player.cooldown_overshield()
-                    print(player.health)
                 if player.health == 0:
                     print("Game over!")
                     sys.exit()

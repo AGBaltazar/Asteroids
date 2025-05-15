@@ -7,6 +7,7 @@ class Player(CircleShape):
         self.rotation = 0
         self.timer = 0
         self.health = 3
+        self.dispersed_count = 0
         self.invinsible = False
         self.invinsible_timer = 10
     

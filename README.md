@@ -40,14 +40,14 @@ python main.py
 
 ## Project Structure
 - `main.py`: Game initialization and main loop
-- `game.py`: Core game logic and state management
-- `ship.py`: Player ship class and controls
+- `player.py`: Player ship class and controls
 - `asteroid.py`: Asteroid generation and behavior
-- `bullet.py`: Projectile handling
-- `utils.py`: Utility functions and helpers
-- `assets/`: Directory containing images and sounds
+- `asteroidfield.py`: Asteroid field generation and behavior
+- `circleshape.py`: Generations of the parent class
 
 ## Future Enhancements
+- [ ] Health System
+- [ ] Display system
 - [ ] Power-ups (shields, rapid fire, etc.)
 - [ ] Multiple levels with increasing difficulty
 - [ ] Different asteroid types (ice, metal, etc.)
