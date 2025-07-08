@@ -14,7 +14,7 @@ def background():
 
 def background_overlay(screen, player):
         font = pygame.font.Font(None, 40)
-        text = font.render(f"Health: {player.health} Enemies Dispersed: {player.dispersed_count}", True, "white")
+        text = font.render(f"Health: {player.health} Enemies Dispersed: {player.dispersed_count}", True, "white", "black")
         text_position = text.get_rect(centerx= SCREEN_WIDTH /2, y =10)
         overlay = pygame.draw.rect(screen, "white", rect= text_position, width= 1)
         screen.blit(text, text_position)
@@ -66,12 +66,29 @@ def main():
                     player.cooldown_overshield()
                 if player.health == 0:
                     print("Game over!")
-                    sys.exit()
+                    game_over_font = pygame.font.Font(None, 80)
+                    restart_font = pygame.font.Font(None, 40)
+                    game_over_text = game_over_font.render("Game Over!", True, "red")
+                    restart_text = restart_font.render("Press R to Restart", True, "white")
+                    game_over_rect = game_over_text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 40))
+                    restart_rect = restart_text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40))
+                    screen.blit(game_over_text, game_over_rect)
+                    screen.blit(restart_text, restart_rect)
+                    pygame.display.flip()
+                    waiting = True
+                    while waiting:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+                            if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                                main()
+                                return
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return 
         dt = clock.tick(60) / 1000
-
 if __name__ == "__main__":
     main()
