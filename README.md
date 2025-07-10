@@ -53,3 +53,17 @@ python main.py
 - [ ] Different asteroid types (ice, metal, etc.)
 - [ ] Background music and sound effects
 - [ ] Visual effects (explosions, engine thrust)
+
+## Contributing
+1. Clone the repository:
+- git clone https://github.com/AGBaltazar/Asteroids.git
+- cd asteroids-game
+
+2. Install dependencies:
+- pip install pygame
+
+5. Edit the File
+- python main.py
+  
+4. Submit a pull request
+- If you'd like to contribute, please fork the repository and open a pull request to the main branch with a brief explanation of your changes.
